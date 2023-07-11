@@ -1,4 +1,4 @@
 .idea
 venv
-private.py
+data
 test.py

@@ -47,7 +47,7 @@ with open("../data/data.json") as file:
 
 while True:
 
-    # Если последняя проверка была меньше часа назад, обработать входящие запросы, подождать 5 секунд и проверить снова
+    # Если последняя проверка была меньше часа назад, обработать входящие запросы
     if last_check_hour == time.localtime().tm_hour:
         handle_updates()
         continue

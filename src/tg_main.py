@@ -4,6 +4,7 @@ import api
 import asyncio
 import requests
 import data.private as private
+from updates_manager import responde
 
 last_check_hour = None
 
@@ -33,9 +34,12 @@ def handle_updates():
     update = update[0]
     offset = update['update_id'] + 1
     text = update['message']['text']
-    user_id = update['chat']['id']
+    author_id = update['message']['chat']['id']
 
-    print(text)
+    print(f'[{time.asctime()}] {author_id}: {text}')
+
+    requests.post(f'https://api.telegram.org/bot{private.tg_token}/sendMessage?chat_id={private.tg_chat_id}&'
+                  f'text={responde(text, author_id)}')
 
 
 with open("../data/data.json") as file:

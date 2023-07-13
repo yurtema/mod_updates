@@ -34,7 +34,7 @@ def handle_updates():
     update = update[0]
     offset = update['update_id'] + 1
     text = update['message']['text']
-    author_id = update['message']['chat']['id']
+    author_id = str(update['message']['chat']['id'])
 
     print(f'[{time.asctime()}] {author_id}: {text}')
 
@@ -86,5 +86,6 @@ while True:
         for mod in mods_to_remove[user]:
             del data[user][mod]
 
-    with open("../data/data.json", 'w') as file:
-        json.dump(data, file)
+    if mods_to_remove != {}:
+        with open("../data/data.json", 'w') as file:
+            json.dump(data, file)

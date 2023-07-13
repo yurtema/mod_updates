@@ -7,14 +7,45 @@ import data.private as private
 
 last_check_hour = None
 
+# Получить изначальный offset
+r = requests.get(f'https://api.telegram.org/bot{private.tg_token}/getUpdates').json()['result']
+if r:
+    offset = r[-1]['update_id'] + 1
+else:
+    offset = 0
+print(offset)
+
+
+def handle_updates():
+    """
+    Функция запрашивает новые сообщения с апи тг с помощью offset, прогоняет по условиям для генерации ответа.
+    Ничего не возвращает, в конце сама отсылает нужные сообщения.
+    Работает с одним апдейтом за раз.
+    """
+    global offset
+
+    update = requests.get(f'https://api.telegram.org/bot{private.tg_token}/'
+                          f'getUpdates?offset={offset}').json()['result']
+
+    if not update:
+        return None
+
+    update = update[0]
+    offset = update['update_id'] + 1
+    text = update['message']['text']
+    user_id = update['chat']['id']
+
+    print(text)
+
+
 with open("../data/data.json") as file:
     data = json.load(file)
 
 while True:
 
-    # Если последняя проверка была меньше часа назад, подождать еще минуту
+    # Если последняя проверка была меньше часа назад, обработать входящие запросы, подождать 5 секунд и проверить снова
     if last_check_hour == time.localtime().tm_hour:
-        time.sleep(60)
+        handle_updates()
         continue
     last_check_hour = time.localtime().tm_hour
 
@@ -53,5 +84,3 @@ while True:
 
     with open("../data/data.json", 'w') as file:
         json.dump(data, file)
-
-

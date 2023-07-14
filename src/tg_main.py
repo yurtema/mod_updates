@@ -1,10 +1,11 @@
 import json
 import time
-import api
 import asyncio
 import requests
+
 import data.private as private
 from updates_manager import responde
+import api
 
 last_check_hour = None
 
@@ -38,7 +39,7 @@ def handle_updates():
 
     print(f'[{time.asctime()}] {author_id}: {text}')
 
-    requests.post(f'https://api.telegram.org/bot{private.tg_token}/sendMessage?chat_id={private.tg_chat_id}&'
+    requests.post(f'https://api.telegram.org/bot{private.tg_token}/sendMessage?chat_id={author_id}&'
                   f'text={responde(text, author_id)}')
 
 
@@ -73,7 +74,7 @@ while True:
             if data[user][mod]["version"] in versions[data[user][mod]["id"]]:
                 # Если есть, кинуть сообщение пользователю и добавить мод в список на удаление из бд
                 requests.post(
-                    f'https://api.telegram.org/bot{private.tg_token}/sendMessage?chat_id={private.tg_chat_id}&text='
+                    f'https://api.telegram.org/bot{private.tg_token}/sendMessage?chat_id={user}&text='
                     f'Мод {mod} из Вашего списка ожидания обновили на {data[user][mod]["version"]}')
                 mods_to_remove_for_user.append(mod)
 

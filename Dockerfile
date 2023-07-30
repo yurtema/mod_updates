@@ -1,7 +1,7 @@
 FROM python:3.11
 
 ADD requirments.txt .
-ADD src .
+ADD src/* .
 
 RUN pip install -r requirments.txt
 

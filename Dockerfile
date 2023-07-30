@@ -5,4 +5,4 @@ ADD src .
 
 RUN pip install -r requirments.txt
 
-CMD ["python", "./main.py"]
+CMD ["python", "src/main.py"]

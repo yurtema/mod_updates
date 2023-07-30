@@ -15,7 +15,6 @@ if r:
     offset = r[-1]['update_id'] + 1
 else:
     offset = 0
-print(offset)
 
 
 def handle_updates():

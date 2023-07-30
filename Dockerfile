@@ -5,4 +5,6 @@ ADD src .
 
 RUN pip install -r requirments.txt
 
-CMD ["python", "./src/tg_main.py"]
+CMD ["ls"]
+
+# CMD ["python", "src/tg_main.py"]

@@ -7,6 +7,5 @@ ADD src/* src
 
 RUN pip install -r requirments.txt
 
-CMD ["ls"]
 
-# CMD ["python", "src/tg_main.py"]
+CMD ["python", "src/tg_main.py"]

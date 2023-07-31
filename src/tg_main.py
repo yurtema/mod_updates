@@ -1,11 +1,13 @@
 import json
+import sys
 import time
 import asyncio
 import requests
-
 import data.private as private
 from updates_manager import responde
 import api
+
+sys.path.append('../')
 
 last_check_hour = None
 

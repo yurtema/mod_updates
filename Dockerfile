@@ -1,17 +1,14 @@
 FROM python:3.11
 
-WORKDIR /script
+RUN mkdir script
+
+VOLUME ["script/data"]
 
 ADD requirments.txt .
-ADD src/* src
+ADD src script/src
 
 RUN pip install -r requirments.txt
 
-CMD ["ls"]
+WORKDIR /script/src
 
-CMD ["ls script"]
-
-CMD ["ls script/src"]
-
-
-CMD ["python", "src/tg_main.py"]
+CMD ["python", "tg_main.py"]

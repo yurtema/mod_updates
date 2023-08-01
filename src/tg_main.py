@@ -35,7 +35,8 @@ def handle_updates():
     try:
         update = requests.get(f'https://api.telegram.org/bot{private["tg_token"]}/'
                               f'getUpdates?offset={offset}').json()['result']
-    except urllib3.exceptions.ProtocolError:
+    except requests.exceptions.ConnectionError:
+        print('пиздец')
         time.sleep(60)
         return
 

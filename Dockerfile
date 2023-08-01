@@ -4,10 +4,10 @@ RUN mkdir script
 
 VOLUME ["script/data"]
 
-ADD requirments.txt .
+ADD requirements.txt .
 ADD src script/src
 
-RUN pip install -r requirments.txt
+RUN pip install -r requirements.txt
 
 WORKDIR /script/src
 

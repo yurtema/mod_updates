@@ -37,7 +37,7 @@ def send_help(text, author_id):
     # Поэтому я дописал эту абсолютно бессмысленную строчку.
     text.find(author_id)
 
-    return f'/add \n/remove\n/list'
+    return f'/add [id мода] [загрузчик] [версия] [название] \n/remove [название] \n/list'
 
 
 @message_handler(commands=['/list'])

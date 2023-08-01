@@ -2,6 +2,8 @@ import json
 import time
 import asyncio
 import requests
+import urllib3.exceptions
+
 from updates_manager import responde
 import api
 
@@ -24,10 +26,15 @@ def handle_updates():
     Ничего не возвращает, в конце сама отсылает нужные сообщения.
     Работает с одним апдейтом за раз.
     """
+
     global offset
 
-    update = requests.get(f'https://api.telegram.org/bot{private["tg_token"]}/'
-                          f'getUpdates?offset={offset}').json()['result']
+    try:
+        update = requests.get(f'https://api.telegram.org/bot{private["tg_token"]}/'
+                              f'getUpdates?offset={offset}').json()['result']
+    except urllib3.exceptions.ProtocolError:
+        time.sleep(60)
+        return
 
     if not update:
         return None

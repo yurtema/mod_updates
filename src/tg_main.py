@@ -18,6 +18,8 @@ if r:
 else:
     offset = 0
 
+print(f'[{time.asctime()}] Bot started')
+
 
 def handle_updates():
     """
@@ -101,3 +103,6 @@ while True:
     if mods_to_remove != {}:
         with open("../data/data.json", 'w') as file:
             json.dump(data, file)
+
+    # Сохранить текущее время как час последнего обновления
+    last_check_hour = time.localtime().tm_hour
